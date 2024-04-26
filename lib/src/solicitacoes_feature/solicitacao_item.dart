@@ -12,8 +12,8 @@ class Solicitacao {
   Solicitacao(this.id, this.title, this.description, this.photo, this.user,
       this.latitude, this.longitude, this.date, this.comments);
 
-  Solicitacao.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
+  Solicitacao.fromJson(Map<String, dynamic> json, String key)
+      : id = key,
         title = json['title'],
         description = json['description'],
         photo = json['photo'],

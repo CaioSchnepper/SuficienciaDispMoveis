@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:utfpr/src/services/auth.service.dart';
+import 'package:utfpr/src/services/solicitacoes.service.dart';
 import 'package:utfpr/src/solicitacoes_feature/solicitacao_item.dart';
 import 'package:utfpr/src/solicitacoes_feature/solicitacao_list_view.dart';
 
@@ -77,6 +79,12 @@ class SolicitacaoDetailsViewState extends State<SolicitacaoDetailsView> {
               const SizedBox(
                 height: 30.0,
               ),
+              (widget.solicitacao.user == AuthService().getCurrentUser())
+                  ? TextButton(
+                      onPressed: () => _delete(),
+                      child: const Text('Excluir'),
+                    )
+                  : const SizedBox(),
               ElevatedButton(
                 onPressed: () => {
                   Navigator.of(context).pushReplacement(
@@ -92,5 +100,23 @@ class SolicitacaoDetailsViewState extends State<SolicitacaoDetailsView> {
         ],
       ),
     );
+  }
+
+  Future<void> _delete() async {
+    String result = await SolicitacoesService().delete(widget.solicitacao);
+
+    if (result == "Success") {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => const SolicitacaoListView(),
+        ),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Erro ao excluir"),
+        ),
+      );
+    }
   }
 }

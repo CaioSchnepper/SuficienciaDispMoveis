@@ -36,12 +36,25 @@ class SolicitacoesService {
 
       for (var child in document.children) {
         final map = Map<String, dynamic>.from(child.value as Map);
-        solicitacoes.add(Solicitacao.fromJson(map));
+        solicitacoes.add(Solicitacao.fromJson(map, child.key ?? ""));
       }
 
       return solicitacoes;
     } catch (e) {
       return List<Solicitacao>.empty();
+    }
+  }
+
+  Future<String> delete(Solicitacao solicitacao) async {
+    try {
+      DatabaseReference ref =
+          FirebaseDatabase.instance.ref("solicitacoes/${solicitacao.id}");
+
+      await ref.remove();
+
+      return 'Success';
+    } catch (e) {
+      return e.toString();
     }
   }
 }
