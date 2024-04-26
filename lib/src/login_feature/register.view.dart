@@ -19,8 +19,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Create Account'),
+        title: const Text('Cadastrar conta'),
+        iconTheme: const IconThemeData(color: Colors.white),
         centerTitle: true,
+        backgroundColor: Colors.blueAccent,
+        titleTextStyle: const TextStyle(color: Colors.white, fontSize: 20),
       ),
       body: Center(
         child: Column(
@@ -42,7 +45,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 controller: _passwordController,
                 obscureText: true,
                 decoration: const InputDecoration(
-                  hintText: 'Password',
+                  hintText: 'Senha',
                 ),
               ),
             ),
@@ -65,7 +68,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 );
               },
-              child: const Text('Create Account'),
+              child: const Text('Criar conta'),
             ),
           ],
         ),

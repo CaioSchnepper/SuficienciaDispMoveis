@@ -3,9 +3,10 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:utfpr/src/login_feature/login.view.dart';
 import 'package:utfpr/src/login_feature/register.view.dart';
+import 'package:utfpr/src/solicitacoes_feature/solicitacao_submit.view.dart';
 
-import 'sample_feature/sample_item_details_view.dart';
-import 'sample_feature/sample_item_list_view.dart';
+import 'solicitacoes_feature/solicitacao_details_view.dart';
+import 'solicitacoes_feature/solicitacao_list_view.dart';
 import 'settings/settings_controller.dart';
 import 'settings/settings_view.dart';
 
@@ -58,7 +59,14 @@ class MyApp extends StatelessWidget {
           // Define a light and dark color theme. Then, read the user's
           // preferred ThemeMode (light, dark, or system default) from the
           // SettingsController to display the correct theme.
-          theme: ThemeData(),
+          theme: ThemeData(
+            useMaterial3: true,
+            // Define the default brightness and colors.
+            colorScheme: ColorScheme.fromSeed(
+              seedColor: Colors.blueAccent,
+              brightness: Brightness.light,
+            ),
+          ),
           darkTheme: ThemeData.dark(),
           themeMode: settingsController.themeMode,
 
@@ -71,10 +79,12 @@ class MyApp extends StatelessWidget {
                 switch (routeSettings.name) {
                   case SettingsView.routeName:
                     return SettingsView(controller: settingsController);
-                  case SampleItemDetailsView.routeName:
-                    return const SampleItemDetailsView();
-                  case SampleItemListView.routeName:
-                    return const SampleItemListView();
+                  case SolicitacaoDetailsView.routeName:
+                    return const SolicitacaoDetailsView();
+                  case SolicitacaoListView.routeName:
+                    return const SolicitacaoListView();
+                  case SolicitacaoSubmitView.routeName:
+                    return const SolicitacaoSubmitView();
                   case LoginScreen.routeName:
                     return const LoginScreen();
                   case RegisterScreen.routeName:

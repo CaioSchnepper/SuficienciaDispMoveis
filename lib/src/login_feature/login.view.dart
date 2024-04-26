@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:utfpr/src/login_feature/register.view.dart';
-import 'package:utfpr/src/sample_feature/sample_item_list_view.dart';
+import 'package:utfpr/src/solicitacoes_feature/solicitacao_list_view.dart';
 import 'package:utfpr/src/services/auth.service.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -21,6 +21,8 @@ class _LoginScreenState extends State<LoginScreen> {
       appBar: AppBar(
         title: const Text('Login'),
         centerTitle: true,
+        backgroundColor: Colors.blueAccent,
+        titleTextStyle: const TextStyle(color: Colors.white, fontSize: 20),
       ),
       body: Center(
         child: Column(
@@ -42,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 controller: _passwordController,
                 obscureText: true,
                 decoration: const InputDecoration(
-                  hintText: 'Password',
+                  hintText: 'Senha',
                 ),
               ),
             ),
@@ -58,7 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 if (message!.contains('Success')) {
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
-                      builder: (context) => const SampleItemListView(),
+                      builder: (context) => const SolicitacaoListView(),
                     ),
                   );
                 }
@@ -81,7 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 );
               },
-              child: const Text('Create Account'),
+              child: const Text('Criar conta'),
             ),
           ],
         ),
