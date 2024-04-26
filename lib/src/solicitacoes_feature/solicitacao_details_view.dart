@@ -54,8 +54,8 @@ class SolicitacaoDetailsViewState extends State<SolicitacaoDetailsView> {
                 width: MediaQuery.of(context).size.width * 0.8,
                 child: TextField(
                   controller: _descriptionController,
-                  minLines: 5,
-                  maxLines: 7,
+                  minLines: 2,
+                  maxLines: 5,
                   decoration: const InputDecoration(
                     hintText: 'Descrição',
                   ),
@@ -67,7 +67,7 @@ class SolicitacaoDetailsViewState extends State<SolicitacaoDetailsView> {
               widget.solicitacao.photo == ""
                   ? const SizedBox()
                   : SizedBox(
-                      height: 250,
+                      height: 200,
                       child:
                           Image.memory(base64Decode(widget.solicitacao.photo)),
                     ),
@@ -95,6 +95,25 @@ class SolicitacaoDetailsViewState extends State<SolicitacaoDetailsView> {
                 },
                 child: const Text('Voltar'),
               ),
+              Column(
+                children: <Widget>[
+                  for (var item in widget.solicitacao.comments)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 6, horizontal: 12),
+                      child: ListTile(
+                        title: Text(
+                          item,
+                          style: const TextStyle(fontSize: 14),
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+              TextButton(
+                onPressed: () => _addComment(),
+                child: const Text('Adicionar comentário'),
+              ),
             ],
           ),
         ],
@@ -118,5 +137,36 @@ class SolicitacaoDetailsViewState extends State<SolicitacaoDetailsView> {
         ),
       );
     }
+  }
+
+  void _addComment() {
+    final TextEditingController commentController = TextEditingController();
+
+    showDialog<String>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text("Adição de comentário"),
+        content: TextField(
+          controller: commentController,
+          decoration: const InputDecoration(hintText: 'Descrição'),
+        ),
+        actions: [
+          ElevatedButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Cancelar')),
+          ElevatedButton(
+              onPressed: () => {
+                    _pushComment(commentController.text),
+                    Navigator.pop(context, commentController.text)
+                  },
+              child: const Text('Confirmar')),
+        ],
+      ),
+    );
+  }
+
+  _pushComment(String value) {
+    widget.solicitacao.comments.add(value);
+    SolicitacoesService().update(widget.solicitacao);
   }
 }
