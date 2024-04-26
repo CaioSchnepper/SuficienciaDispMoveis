@@ -2,6 +2,8 @@
 
 A new Flutter project.
 
+To run the project: **flutter run**
+
 ## Getting Started
 
 This project is a starting point for a Flutter application that follows the
