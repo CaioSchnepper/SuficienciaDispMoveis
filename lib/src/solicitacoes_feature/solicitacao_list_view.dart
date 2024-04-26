@@ -71,7 +71,7 @@ class SolicitacaoListViewState extends State<SolicitacaoListView> {
               ),
               subtitle: Text(
                 "${item.date.day}/${item.date.month}/${item.date.year}",
-                style: const TextStyle(fontSize: 1),
+                style: const TextStyle(fontSize: 16),
               ),
               leading: const Icon(Icons.check),
               tileColor: const Color.fromARGB(255, 213, 227, 255),
