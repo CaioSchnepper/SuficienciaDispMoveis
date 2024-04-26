@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:camera/camera.dart';
@@ -130,7 +131,7 @@ class SolicitacaoSubmitViewState extends State<SolicitacaoSubmitView> {
         const Uuid().v4(),
         _titleController.text,
         _descriptionController.text,
-        widget.photo ?? "",
+        getPhotoB64(),
         AuthService().getCurrentUser(),
         position.latitude,
         position.longitude,
@@ -150,5 +151,14 @@ class SolicitacaoSubmitViewState extends State<SolicitacaoSubmitView> {
         content: Text(message),
       ),
     );
+  }
+
+  String getPhotoB64() {
+    if (widget.photo == null) {
+      return "";
+    }
+
+    List<int> imageBytes = File(widget.photo!).readAsBytesSync();
+    return base64Encode(imageBytes);
   }
 }

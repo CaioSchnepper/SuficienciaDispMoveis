@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -65,9 +66,8 @@ class SolicitacaoDetailsViewState extends State<SolicitacaoDetailsView> {
                   ? const SizedBox()
                   : SizedBox(
                       height: 250,
-                      child: Image.file(
-                        File(widget.solicitacao.photo),
-                      ),
+                      child:
+                          Image.memory(base64Decode(widget.solicitacao.photo)),
                     ),
               const SizedBox(
                 height: 30.0,
