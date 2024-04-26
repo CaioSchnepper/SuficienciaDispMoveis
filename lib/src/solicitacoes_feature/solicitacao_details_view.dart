@@ -29,11 +29,11 @@ class SolicitacaoDetailsViewState extends State<SolicitacaoDetailsView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Detalhes da solicitação'),
-      ),
       body: ListView(
         children: [
+          const SizedBox(
+            height: 30.0,
+          ),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -69,6 +69,11 @@ class SolicitacaoDetailsViewState extends State<SolicitacaoDetailsView> {
                         File(widget.solicitacao.photo),
                       ),
                     ),
+              const SizedBox(
+                height: 30.0,
+              ),
+              Text("Latitude: ${widget.solicitacao.latitude}"),
+              Text("Longitude: ${widget.solicitacao.longitude}"),
               const SizedBox(
                 height: 30.0,
               ),
