@@ -21,7 +21,12 @@ class Solicitacao {
         latitude = json['latitude'],
         longitude = json['longitude'],
         date = DateTime.parse(json['date']),
-        comments = json['comments'] ?? List<String>.empty(growable: true);
+        comments = toCommentsList(
+            json['comments'] ?? List<String>.empty(growable: true));
+
+  static List<String> toCommentsList(List<dynamic> list) {
+    return list.map((comment) => comment.toString()).toList();
+  }
 
   Map<String, dynamic> toJson() => {
         'id': id,
