@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -10,9 +12,11 @@ import 'package:utfpr/src/solicitacoes_feature/solicitacao_list_view.dart';
 import 'package:uuid/uuid.dart';
 
 class SolicitacaoSubmitView extends StatefulWidget {
-  const SolicitacaoSubmitView({super.key});
+  const SolicitacaoSubmitView({super.key, this.photo});
 
   static const routeName = '/submit';
+
+  final String? photo;
 
   @override
   SolicitacaoSubmitViewState createState() => SolicitacaoSubmitViewState();
@@ -28,47 +32,69 @@ class SolicitacaoSubmitViewState extends State<SolicitacaoSubmitView> {
       appBar: AppBar(
         title: const Text('Nova solicitação'),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.8,
-              child: TextField(
-                controller: _titleController,
-                decoration: const InputDecoration(hintText: 'Título'),
-              ),
-            ),
-            const SizedBox(
-              height: 30.0,
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.8,
-              child: TextField(
-                controller: _descriptionController,
-                minLines: 5,
-                maxLines: 7,
-                decoration: const InputDecoration(
-                  hintText: 'Descrição',
+      body: ListView(
+        children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.8,
+                child: TextField(
+                  controller: _titleController,
+                  decoration: const InputDecoration(hintText: 'Título'),
                 ),
               ),
-            ),
-            const SizedBox(
-              height: 30.0,
-            ),
-            ElevatedButton(
-              onPressed: () => takePicture(),
-              child: const Text('Tirar foto'),
-            ),
-            const SizedBox(
-              height: 30.0,
-            ),
-            ElevatedButton(
-              onPressed: () => sendSolicitacao(),
-              child: const Text('Cadastrar'),
-            ),
-          ],
-        ),
+              const SizedBox(
+                height: 30.0,
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.8,
+                child: TextField(
+                  controller: _descriptionController,
+                  minLines: 5,
+                  maxLines: 7,
+                  decoration: const InputDecoration(
+                    hintText: 'Descrição',
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 30.0,
+              ),
+              widget.photo == null
+                  ? TextButton(
+                      onPressed: () => takePicture(),
+                      child: const Text('Tirar foto'),
+                    )
+                  : SizedBox(
+                      height: 250,
+                      child: Image.file(
+                        File(widget.photo!),
+                      ),
+                    ),
+              const SizedBox(
+                height: 30.0,
+              ),
+              ElevatedButton(
+                onPressed: () => sendSolicitacao(),
+                child: const Text('Cadastrar'),
+              ),
+              const SizedBox(
+                height: 30.0,
+              ),
+              TextButton(
+                onPressed: () => {
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                      builder: (context) => const SolicitacaoListView(),
+                    ),
+                  ),
+                },
+                child: const Text('Voltar'),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -104,7 +130,7 @@ class SolicitacaoSubmitViewState extends State<SolicitacaoSubmitView> {
         const Uuid().v4(),
         _titleController.text,
         _descriptionController.text,
-        "photo",
+        widget.photo ?? "",
         AuthService().getCurrentUser(),
         position.latitude,
         position.longitude,

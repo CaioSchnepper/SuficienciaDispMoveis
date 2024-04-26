@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:utfpr/src/solicitacoes_feature/solicitacao_submit.view.dart';
 
 class TakePictureScreen extends StatefulWidget {
   const TakePictureScreen({
@@ -44,9 +45,9 @@ class TakePictureScreenState extends State<TakePictureScreen> {
   }
 
   @override
-   Widget build(BuildContext context) {
+  Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Take a picture')),
+      appBar: AppBar(title: const Text('Tire uma foto')),
       // You must wait until the controller is initialized before displaying the
       // camera preview. Use a FutureBuilder to display a loading spinner until the
       // controller has finished initializing.
@@ -107,10 +108,24 @@ class DisplayPictureScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Display the Picture')),
+      appBar: AppBar(title: const Text('Confirme a foto')),
       // The image is stored as a file on the device. Use the `Image.file`
       // constructor with the given path to display the image.
       body: Image.file(File(imagePath)),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.check),
+        onPressed: () async {
+          await Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => SolicitacaoSubmitView(
+                // Pass the automatically generated path to
+                // the DisplayPictureScreen widget.
+                photo: imagePath,
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 }
