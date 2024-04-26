@@ -1,6 +1,8 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:utfpr/src/camera_feature/camera.view.dart';
 import 'package:utfpr/src/services/auth.service.dart';
 import 'package:utfpr/src/services/solicitacoes.service.dart';
 import 'package:utfpr/src/solicitacoes_feature/solicitacao_item.dart';
@@ -44,7 +46,8 @@ class SolicitacaoSubmitViewState extends State<SolicitacaoSubmitView> {
               width: MediaQuery.of(context).size.width * 0.8,
               child: TextField(
                 controller: _descriptionController,
-                obscureText: true,
+                minLines: 5,
+                maxLines: 7,
                 decoration: const InputDecoration(
                   hintText: 'Descrição',
                 ),
@@ -70,7 +73,19 @@ class SolicitacaoSubmitViewState extends State<SolicitacaoSubmitView> {
     );
   }
 
-  void takePicture() {}
+  Future<void> takePicture() async {
+    // Obtain a list of the available cameras on the device.
+    final cameras = await availableCameras();
+
+    // Get a specific camera from the list of available cameras.
+    final firstCamera = cameras.first;
+
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => TakePictureScreen(camera: firstCamera),
+      ),
+    );
+  }
 
   Future<void> sendSolicitacao() async {
     if (await Permission.location.request().isGranted == false) {

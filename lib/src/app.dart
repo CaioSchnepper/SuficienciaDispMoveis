@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:utfpr/src/login_feature/login.view.dart';
 import 'package:utfpr/src/login_feature/register.view.dart';
+import 'package:utfpr/src/solicitacoes_feature/solicitacao_item.dart';
 import 'package:utfpr/src/solicitacoes_feature/solicitacao_submit.view.dart';
 
 import 'solicitacoes_feature/solicitacao_details_view.dart';
@@ -80,7 +81,7 @@ class MyApp extends StatelessWidget {
                   case SettingsView.routeName:
                     return SettingsView(controller: settingsController);
                   case SolicitacaoDetailsView.routeName:
-                    return const SolicitacaoDetailsView();
+                   // return const SolicitacaoDetailsView(solicitacao: Solicitacao());
                   case SolicitacaoListView.routeName:
                     return const SolicitacaoListView();
                   case SolicitacaoSubmitView.routeName:

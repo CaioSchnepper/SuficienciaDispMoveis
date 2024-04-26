@@ -36,11 +36,12 @@ class SolicitacaoListViewState extends State<SolicitacaoListView> {
             icon: const Icon(Icons.add),
             color: Colors.white,
             onPressed: () {
-              // Navigate to the settings page. If the user leaves and returns
-              // to the app after it has been killed while running in the
-              // background, the navigation stack is restored.
-              Navigator.restorablePushNamed(
-                  context, SolicitacaoSubmitView.routeName);
+              Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        const SolicitacaoSubmitView(),
+                  ),
+                );
             },
           ),
         ],
@@ -61,18 +62,28 @@ class SolicitacaoListViewState extends State<SolicitacaoListView> {
         itemBuilder: (BuildContext context, int index) {
           final item = _solicitacoes[index];
 
-          return ListTile(
-            title: Text(item.title),
-            leading: const Icon(Icons.pages),
-            onTap: () {
-              // Navigate to the details page. If the user leaves and returns to
-              // the app after it has been killed while running in the
-              // background, the navigation stack is restored.
-              Navigator.restorablePushNamed(
-                context,
-                SolicitacaoDetailsView.routeName,
-              );
-            },
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+            child: ListTile(
+              title: Text(
+                item.title,
+                style: const TextStyle(fontSize: 18),
+              ),
+              subtitle: Text(
+                "${item.date.day}/${item.date.month}/${item.date.year}",
+                style: const TextStyle(fontSize: 1),
+              ),
+              leading: const Icon(Icons.check),
+              tileColor: const Color.fromARGB(255, 213, 227, 255),
+              onTap: () {
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        SolicitacaoDetailsView(solicitacao: item),
+                  ),
+                );
+              },
+            ),
           );
         },
       ),
