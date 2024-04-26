@@ -37,11 +37,10 @@ class SolicitacaoListViewState extends State<SolicitacaoListView> {
             color: Colors.white,
             onPressed: () {
               Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        const SolicitacaoSubmitView(),
-                  ),
-                );
+                MaterialPageRoute(
+                  builder: (context) => const SolicitacaoSubmitView(),
+                ),
+              );
             },
           ),
         ],
@@ -53,40 +52,45 @@ class SolicitacaoListViewState extends State<SolicitacaoListView> {
       // In contrast to the default ListView constructor, which requires
       // building all Widgets up front, the ListView.builder constructor lazily
       // builds Widgets as they’re scrolled into view.
-      body: ListView.builder(
-        // Providing a restorationId allows the ListView to restore the
-        // scroll position when a user leaves and returns to the app after it
-        // has been killed while running in the background.
-        restorationId: 'solicitacaoListView',
-        itemCount: _solicitacoes.length,
-        itemBuilder: (BuildContext context, int index) {
-          final item = _solicitacoes[index];
+      body: _solicitacoes.isEmpty
+          ? const Center(
+              child: Text("Não há dados"),
+            )
+          : ListView.builder(
+              // Providing a restorationId allows the ListView to restore the
+              // scroll position when a user leaves and returns to the app after it
+              // has been killed while running in the background.
+              restorationId: 'solicitacaoListView',
+              itemCount: _solicitacoes.length,
+              itemBuilder: (BuildContext context, int index) {
+                final item = _solicitacoes[index];
 
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-            child: ListTile(
-              title: Text(
-                item.title,
-                style: const TextStyle(fontSize: 18),
-              ),
-              subtitle: Text(
-                "${item.date.day}/${item.date.month}/${item.date.year}",
-                style: const TextStyle(fontSize: 16),
-              ),
-              leading: const Icon(Icons.check),
-              tileColor: const Color.fromARGB(255, 213, 227, 255),
-              onTap: () {
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        SolicitacaoDetailsView(solicitacao: item),
+                return Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                  child: ListTile(
+                    title: Text(
+                      item.title,
+                      style: const TextStyle(fontSize: 18),
+                    ),
+                    subtitle: Text(
+                      "${item.date.day}/${item.date.month}/${item.date.year}",
+                      style: const TextStyle(fontSize: 16),
+                    ),
+                    leading: const Icon(Icons.check),
+                    tileColor: const Color.fromARGB(255, 213, 227, 255),
+                    onTap: () {
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              SolicitacaoDetailsView(solicitacao: item),
+                        ),
+                      );
+                    },
                   ),
                 );
               },
             ),
-          );
-        },
-      ),
     );
   }
 
