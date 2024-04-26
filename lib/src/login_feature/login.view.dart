@@ -4,17 +4,29 @@ import 'package:utfpr/src/solicitacoes_feature/solicitacao_list_view.dart';
 import 'package:utfpr/src/services/auth.service.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({super.key});
 
   static const routeName = '/login';
 
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  LoginScreenState createState() => LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    // if (AuthService().isLogged()) {
+    //   Navigator.restorablePushNamed(
+    //     context,
+    //     SolicitacaoListView.routeName,
+    //   );
+    // }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

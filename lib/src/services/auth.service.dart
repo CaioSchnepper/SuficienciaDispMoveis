@@ -46,4 +46,12 @@ class AuthService {
       return e.toString();
     }
   }
+
+  bool isLogged() {
+    return FirebaseAuth.instance.currentUser != null;
+  }
+
+  String getCurrentUser() {
+    return FirebaseAuth.instance.currentUser?.email ?? "Usuário";
+  }
 }

@@ -12,10 +12,14 @@ environment:
 dependencies:
   firebase_auth: ^4.19.4
   firebase_core: ^2.30.1
+  firebase_database: ^10.5.4
   flutter:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
+  geolocator: ^11.0.0
+  permission_handler: ^11.3.1
+  uuid: ^4.4.0
 
 dev_dependencies:
   flutter_test:
