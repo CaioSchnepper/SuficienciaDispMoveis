@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "61213605142",
+    "firebase_url": "https://dispositivosmoveis-69-default-rtdb.firebaseio.com",
+    "project_id": "dispositivosmoveis-69",
+    "storage_bucket": "dispositivosmoveis-69.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:61213605142:android:ed77acea8fbc16b440e437",
+        "android_client_info": {
+          "package_name": "com.example.flutter_to_do_list"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDazwXMN_nGa7_GHHZGCyNbBpY2q-WPIL4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:61213605142:android:fbeb528120c19e9740e437",
+        "android_client_info": {
+          "package_name": "com.example.utfpr"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDazwXMN_nGa7_GHHZGCyNbBpY2q-WPIL4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
